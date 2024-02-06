@@ -1,0 +1,289 @@
+<?php
+include('header.php');
+?>
+
+    <div id="main-content" style="background-image: url('img/bg-blurred.jpg'); width: auto; margin-top: 2px;">
+
+        <div class="wrapper">
+
+           
+
+            <div class="row" style="">
+
+                <div class="kopa-main-col">
+
+
+
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="height: 300px;">
+
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                  <img src="img/free-sports-betting-tips-1.jpg" style="height: 300px; min-width: 830px;" alt="...">
+
+                </div>
+                <div class="item">
+                  <img src="img/1_005.jpg" style="height: 300px; min-width: 830px;" alt="...">
+                </div>
+
+                <div class="item">
+                  <img src="img/7959859.jpg" style="height: 300px; min-width: 830px;" alt="...">
+
+                </div>
+
+                <div class="item">
+                  <img src="img/hedging.jpg" style="height: 300px; min-width: 830px;" alt="...">
+
+                </div>
+
+
+              </div>
+
+              <!-- Controls -->
+              <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                
+              </a>
+              <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+
+              </a>
+            </div>
+
+<?php
+include('header_below.php');
+?>
+
+                                <ul class="clearfix mb-60" style="padding-left: 10px;">
+                                <?php
+                                $Premier  = "Premier League";
+                                $Champions_l  = "Champions League";
+                                $Bundesliga = "Bundesliga";
+                                $Serie = "Serie A";
+                                $Ligue = "Ligue 1";
+                                $La = "La Liga";
+                                $World_cup = "World cup 2018";
+                                 $Scotland_Premiership = "Scotland Premiership";
+                                $England_FA_Cup = "England FA Cup";
+                                $International_Friendlies = "International Friendlies";
+                                $has = mysql_query("SELECT id, team_played, possible_outcome, bet_pin, game_type, stake_amount, created_by, game_id, game_status FROM create_game WHERE game_status = '' ORDER BY id DESC");
+                                while ($bam = mysql_fetch_array($has)) {
+                                ?>
+                                    <li style="margin-bottom: -20px; border: 1px solid#3B5998;">
+                                        <div class="match-item list-item">
+                                        <?php
+                                        $active = "active";
+                                        $sqxz = mysql_query("SELECT id, home_team, away_team, game_time, league, team_win, posssible_outcome FROM avaliabe_games WHERE id = '$bam[7]' AND game_status = '$active'");
+                                        $vax = mysql_fetch_array($sqxz);
+                                        $red = "red";
+                                        $yellow = "orange";
+                                        $green = "green";
+                                        ?>
+                                            <div class="r-item">
+                                                <table class="table" style="margin-bottom: -10px;">
+                                                    <tbody>
+                                                        <tr> 
+                                                            <td>
+                                                                <span class="r-content">
+                                                                    <img src="logos/<?php echo "$vax[1]"; ?>.<?php 
+                                                              if ($vax[4] == $World_cup OR $International_Friendlies) {
+                                                                echo "png"; }else{ echo "ico"; } ?>" style="height: 30px; width: 30px;" alt="">
+                                                                    <span style="text-transform: capitalize; font-weight: bold;">
+                                                                    <?php echo "$vax[1]"; ?> </span>
+                                                                </span>
+                                                                -
+                                                                <span class="r-content">
+                                                                    <span style="text-transform: capitalize; font-weight: bold;">
+                                                                    <?php echo "$vax[2]"; ?> </span>
+                                                                    <img src="logos/<?php echo "$vax[2]"; ?>.<?php 
+                                                              if ($vax[4] == $World_cup OR $International_Friendlies) {
+                                                                echo "png"; }else{ echo "ico"; } ?>" style="height: 30px; width: 30px;" alt="">
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                           
+                                                            <span><?php echo "$bam[1]"; ?><span style="color: <?php
+                                                            if ($bam[2] == 'win') {
+                                                                echo "$green";
+                                                            }
+                                                            if ($bam[2] == 'loss') {
+                                                                echo "$red";
+                                                            }
+                                                            if ($bam[2] == 'draw') {
+                                                                echo "$yellow";
+                                                            }
+                                                            ?>
+                                                            ;">&nbsp;<?php echo "$bam[2]"; ?></span></span>
+                                                            </td>
+                                                            <td>
+                                                                <span style="text-align: center; color: green;">₦<?php echo "$bam[5]"; ?></span>
+                                                            </td>
+                                                            <td>
+                                                                <span>Class: <?php echo "$bam[4]"; ?></span>
+                                                            </td>
+                                                        </tr>
+                                                        <?php
+                                                        $count_data = mysql_query("SELECT count(*) from join_game WHERE game_id = '$bam[0]'");
+                                                        $rw = mysql_fetch_array($count_data);
+                                                        ?>
+                                                        <span style="float: left; padding-left: 10px;"><?php echo "$rw[0]"; ?> users Joined</span>
+                                                        <small style="float: right; margin-right: 10px;"> 2hrs ago</small>
+                                                                <small style="float: right; margin-right: 10px; font-weight: bold;">Created by <?php echo "$bam[6]"; ?></small>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <div class="match-info" style="background-color: #3B5998; border-color: #3B5998;">
+                                                
+                                                <?php
+                                                  if ($vax[6] == "") {
+                                                ?>
+                                               <a href="join_game.php?join_game=<?php echo "$bam[0]"; ?>">
+                                                    <button style="font-weight: bold; float: right; margin-right: 10px;" class="btn btn-default btn-xs"><i class="fa fa-plus"></i>&nbsp;&nbsp; Join</button>
+                                                </a>
+                                                <?php
+                                                }else{
+                                                ?>
+                                               <a href="join_game.php?join_game=<?php echo "$bam[0]"; ?>">
+                                                    <button style="font-weight: bold; float: right; margin-right: 10px;" class="btn btn-default btn-xs"><i class="fa fa-search"></i>&nbsp;&nbsp; View</button>
+                                                </a>
+                                                <?php
+                                                }
+                                                ?>
+                                                <span style="color: #fff;">Game code: <?php echo "$bam[3]"; ?></span>
+                                                <button data-toggle="modal" data-target="#m<?php echo $bam[0]; ?>" style="font-weight: bold; float: left; margin-right: 10px; margin-left: 10px;" class="btn btn-default btn-xs">
+                                                    <?php
+                                                       $count_comment = mysql_query("SELECT count(*) from cooments WHERE game_pin = '$bam[0]'");
+                                                       $rp = mysql_fetch_array($count_comment);
+                                                       echo "$rp[0]";
+                                                    ?>
+                                                    &nbsp;<i class="fa fa-comments-o"></i></button>
+                                            </div>
+                                            
+                                        </div>
+                                    </li>
+
+                <div id="m<?php echo "$bam[0]"; ?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <br>
+              <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="myModalLabel" style="margin-left: 10px;">Comments</h4>
+                        </div>
+                        <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                    <div id="display_comment_<?=$bam[0]?>"></div>
+                                        <textarea type="submit" class="form-control" id="msg_<?=$bam[0]?>" placeholder="Type comment..."></textarea>
+                                    
+                                    </div><!-- end col -->
+                                </div><!-- end row -->
+                            </div><!-- end modal-body -->
+                        <div class="modal-footer">
+                          <button game_id="<?=$bam[0]?>" style="background-color:  #3B5998; color: #fff; font-weight: bold;" class="comment-button btn">Comment</button>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+
+
+
+
+                   
+                 
+                                    <?php
+                                        }
+                                    ?>
+                                </ul>
+
+                               
+                            </div>
+                            <!-- widget --> 
+                            
+                        </div>
+                        <!-- tab-pane -->
+                       
+                    </div>
+
+                </div>
+                <!-- main-col -->
+
+                <?php
+                include('side_bar.php');
+                ?>
+
+            </div>
+            <!-- row -->
+        
+        </div>
+        <!-- wrapper -->
+
+    </div>
+
+    <?php
+    include('footer.php');
+    ?>
+
+
+<script type="text/javascript" src="js/jquery_1.js"></script>
+                  <script type="text/javascript">
+                        var game_id = undefined;
+                        var msg = $("#msg").val();
+                        $(document).ready(function(){
+                            //alert("jquery is working");
+                            $(".comment-button").click(function(elem){
+                                console.log(elem.target);
+                                console.log("clicked!!!");
+                                game_id = $(elem.target).attr("game_id");
+                                var msg = $("#msg_"+game_id).val();
+                                console.log("Comment is " + msg);
+                                $.ajax({
+                                    url:"ajax_comment.php",
+                                    type: "POST", 
+                                    data: {
+                                        "done": 1,
+                                        "msg" : msg,
+                                        "game_id": game_id
+                                    },
+                                    success: function(data){
+                                        displayFromDatabase("display_comment_"+game_id, game_id);
+                                        $("#msg").val('');
+                                    }
+                                })
+                            });
+                        });
+
+                        function displayFromDatabase(id, game_id){ 
+                            console.log("id is " + id, "post id is "+ game_id);
+                            $.ajax({
+                                url: "ajax_comment.php",
+                                type: "POST", 
+                                data: {
+                                    "display": 1,
+                                    "msg" : msg,
+                                    "game_id": game_id
+                                },
+                                success: function(d){
+                                    $("#"+id).html(d);
+                                }
+                            });
+                        }
+                        $(".comment-button").toArray().forEach(function(evt){
+
+                           var id = $(evt).attr("game_id");
+                           displayFromDatabase("display_comment_"+id, id);
+                        });
+                        displayFromDatabase(); // To output when the page loads
+                       // setInterval(displayFromDatabase, (2 * 1000)); // x * 1000 to get it in seconds
+                    </script>                                                       
+
+
+    <a href="#" class="scrollup"><span class="fa fa-chevron-up"></span></a>
+
+    <script src="js/jquery-1.js"></script> 
+    <script src="js/bootstrap.js"></script>
+    <script src="js/js"></script>
+    
+</body>
+</html>

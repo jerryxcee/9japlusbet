@@ -1,0 +1,25 @@
+<style type="text/css">
+#box{
+background-color:red;
+padding:1rem;
+width : 50%;
+height:150px;
+margin:auto;
+}
+</style>
+
+
+<div id="box" onclick="myFunction()">
+</div>
+
+
+<script type="text/javascript">
+function myFunction() {
+    var x = document.getElementById('box');
+    if (x.style.backgroundColor === 'red') {
+        x.style.backgroundColor = 'blue';
+    } else {
+        x.style.backgroundColor = 'red';
+    }
+}
+</script>
